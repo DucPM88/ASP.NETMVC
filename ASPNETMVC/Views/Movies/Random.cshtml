@@ -1,0 +1,24 @@
+﻿@*@using ASPNETMVC.Models
+    @model ASPNETMVC.Models.Movie*@
+@model ASPNETMVC.ViewModels.RandomMovieViewModel
+@{
+    ViewBag.Title = "Random";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var className = Model.Customers.Count > 0 ? "Popular" : null;
+}
+<h2 class="@className">@Model.Movie.Name</h2>
+
+@*@Html.ActionLink("View Movies","Index","Movies", new { id =1 })*@
+
+<ul>
+    @foreach (var customer in Model.Customers)
+    {
+        <li>@customer.Name</li>
+
+    }
+</ul>
+
+
+@*@(((Movie)ViewData["Movie"]).Name)*@
