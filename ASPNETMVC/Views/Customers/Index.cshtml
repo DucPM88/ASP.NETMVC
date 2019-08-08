@@ -1,0 +1,34 @@
+﻿@model IEnumerable<ASPNETMVC.Models.Customer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customers</h2>
+@if (!Model.Any())
+{
+    <p>abc</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>DiscountRate</th>
+                <th>MembershipType</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cus in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(cus.Name, "Edit", "Customers", new { id = cus.Id }, null)</td>
+                    <td>@cus.MembershipType.DiscountRate%</td>
+                    <td>@cus.MembershipType.Name</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
