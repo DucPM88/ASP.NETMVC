@@ -43,6 +43,7 @@ namespace ASPNETMVC.Controllers
         /// <param name="customer">The customer.</param>
         /// <returns></returns>
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
             if (!ModelState.IsValid)

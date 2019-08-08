@@ -15,6 +15,8 @@ namespace ASPNETMVC.Models
         public bool IsSubcribedToNewletter { get; set; }
         public MembershipType MembershipType { get; set; }
         public byte MembershipTypeId { get; set; }
+
+        [Min18YearsIfAMember]
         public DateTime BirthDay { get; set; }
     }
 }
