@@ -18,7 +18,8 @@ namespace ASPNETMVC.Dtos
 
         public byte MembershipTypeId { get; set; }
 
-        
+        public MembershipTypeDto MembershipType { get; set; }
+
         public DateTime BirthDay { get; set; }
     }
 }

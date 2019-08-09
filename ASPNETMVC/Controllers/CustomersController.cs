@@ -77,8 +77,8 @@ namespace ASPNETMVC.Controllers
 
         public ActionResult Index()
         {
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
-            return View(customers);
+            //var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+            return View();
         }
         /// <summary>
         /// Lấy thông tin chi tiết 1 customer

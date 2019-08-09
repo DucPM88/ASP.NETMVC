@@ -114,8 +114,8 @@ namespace ASPNETMVC.Controllers
 
         public ActionResult Index()
         {
-            var movies = _context.Movies.Include(m =>m.Genre).ToList();
-            return View(movies);
+            //var movies = _context.Movies.Include(m =>m.Genre).ToList();
+            return View();
         }
 
         public ActionResult ByReleaseDate(int year, int month)

@@ -5,32 +5,79 @@
 }
 
 <h2>Customers</h2>
-@Html.ActionLink("New Customer","New", "Customers", new { @class ="btn btn-primary"})
 
-@if (!Model.Any())
-{
-    <p>abc</p>
-}
-else
-{
-    <table class="table table-bordered table-hover">
+@Html.ActionLink("New Customer", "New", "Customers", new { @class = "btn btn-primary" })
+
+    <table id="customer" class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>Customer</th>
-                <th>DiscountRate</th>
                 <th>MembershipType</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var cus in Model)
+            @*@foreach (var cus in Model)
             {
                 <tr>
                     <td>@Html.ActionLink(cus.Name, "Edit", "Customers", new { id = cus.Id }, null)</td>
                     <td>@cus.MembershipType.DiscountRate%</td>
                     <td>@cus.MembershipType.Name</td>
+                    <td>
+                        <button data-customer-id =" @cus.Id" class="btn-link js-delete">Delete</button>
+                    </td>
 
                 </tr>
-            }
+            }*@
         </tbody>
     </table>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            var table = $("#customer").DataTable({
+                ajax: {
+                    url: "/api/customers",
+                    dataSrc:""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function (data, type, customer) {
+                            return "<a href = '/customers/edit/" + customer.id + "'>" + customer.name + "</a>";
+                        }
+                    },
+                    {
+                        data:"membershipType.name"
+                    },
+                    {
+                        data: "id",
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-customer-id =" + data + ">Delete</button>";
+        
+                        }
+                    }
+                ]
+            });
+
+            $("#customer ").on("click",".js-delete", function () {
+                var button = $(this);
+                bootbox.confirm("Bạn có chắc chắn muốn xóa", function (result) {
+                    if (result) {
+                        $.ajax({
+                            type: "DELETE",
+                            url: "/api/customers/" + button.attr("data-customer-id"),
+                            dataType: "json",
+                            success: function (response) {
+                                table.row(button.parents("tr")).remove().draw();
+
+                            }
+
+                        });
+                    }
+                })
+                
+            })
+        });
+    </script>
 }
